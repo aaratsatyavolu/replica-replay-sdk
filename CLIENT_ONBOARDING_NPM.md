@@ -151,6 +151,68 @@ npx replay-setup
 </script>
 ```
 
+## CDN Implementation (Simplest Option)
+
+### Quick Start
+
+Clients can use a simple script tag without any npm installation:
+
+```html
+<script 
+  src="https://cdn.jsdelivr.net/gh/aaratsatyavolu/replica-replay-sdk@main/build/cdn/replica-replay.min.js?projectKey=003&secretKey=0003" 
+  crossorigin="anonymous">
+</script>
+```
+
+### When to Use CDN vs NPM
+
+**Use CDN when:**
+
+- Simple websites or landing pages
+- No build tools or bundler
+- Want fastest setup (30 seconds)
+- Don't need custom configuration
+
+**Use NPM when:**
+
+- Complex applications
+- Using a JavaScript framework (React, Vue, etc.)
+- Need TypeScript support
+- Want version control and customization
+
+### CDN Usage Examples
+
+#### 1. Auto-Initialize with URL Parameters
+```html
+<script 
+  src="https://cdn.jsdelivr.net/gh/aaratsatyavolu/replica-replay-sdk@main/build/cdn/replica-replay.min.js?projectKey=YOUR_KEY&secretKey=YOUR_SECRET" 
+  crossorigin="anonymous">
+</script>
+```
+
+#### 2. Auto-Initialize with Data Attributes
+```html
+<script 
+  src="https://cdn.jsdelivr.net/gh/aaratsatyavolu/replica-replay-sdk@main/build/cdn/replica-replay.min.js" 
+  data-project-key="YOUR_KEY" 
+  data-secret-key="YOUR_SECRET"
+  crossorigin="anonymous">
+</script>
+```
+
+#### 3. Manual Initialize
+```html
+<script src="https://cdn.jsdelivr.net/gh/aaratsatyavolu/replica-replay-sdk@main/build/cdn/replica-replay.min.js"></script>
+<script>
+  ReplicaReplay.init({
+    projectKey: 'YOUR_KEY',
+    secretKey: 'YOUR_SECRET',
+    onSuccess: () => console.log('✅ Ready'),
+    onError: (err) => console.error('❌ Error:', err)
+  });
+</script>
+```
+
 ## Verification Steps
 
 ### 1. Check Installation

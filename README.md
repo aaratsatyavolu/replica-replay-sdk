@@ -4,13 +4,48 @@
 
 ## 🚀 Quick Start
 
-### 1. Install
+### Option 1: CDN Implementation (Fastest - 30 seconds)
+
+#### Auto-Initialize with URL Parameters
+```html
+<script 
+  src="https://cdn.jsdelivr.net/gh/aaratsatyavolu/replica-replay-sdk@main/build/cdn/replica-replay.min.js?projectKey=YOUR_KEY&secretKey=YOUR_SECRET" 
+  crossorigin="anonymous">
+</script>
+```
+
+#### Auto-Initialize with Data Attributes
+```html
+<script 
+  src="https://cdn.jsdelivr.net/gh/aaratsatyavolu/replica-replay-sdk@main/build/cdn/replica-replay.min.js" 
+  data-project-key="YOUR_KEY" 
+  data-secret-key="YOUR_SECRET"
+  crossorigin="anonymous">
+</script>
+```
+
+#### Manual Initialize
+```html
+<script src="https://cdn.jsdelivr.net/gh/aaratsatyavolu/replica-replay-sdk@main/build/cdn/replica-replay.min.js"></script>
+<script>
+  ReplicaReplay.init({
+    projectKey: 'YOUR_KEY',
+    secretKey: 'YOUR_SECRET',
+    onSuccess: () => console.log('✅ Ready'),
+    onError: (err) => console.error('❌ Error:', err)
+  });
+</script>
+```
+
+### Option 2: NPM Package (Advanced - 2 minutes)
+
+#### 1. Install
 
 ```bash
 npm install git+https://github.com/aaratsatyavolu/replica-replay-sdk.git
 ```
 
-### 2. Setup (One-time)
+#### 2. Setup (One-time)
 
 ```bash
 npx replay-setup
@@ -18,7 +53,7 @@ npx replay-setup
 
 Enter your Project Key and Secret Key when prompted. The setup wizard will generate integration code for your framework.
 
-### 3. Add to Your App
+#### 3. Add to Your App
 
 **React:**
 ```javascript
@@ -79,6 +114,70 @@ export default function App({ Component, pageProps }) {
   });
 </script>
 ```
+
+## 🌐 CDN Distribution
+
+### Available Builds
+
+- **`replica-replay.min.js`** - Production build with all features (recommended)
+- **`replica-replay-minimal.min.js`** - Minimal build for smaller file size
+- **`replica-replay-dev.js`** - Development build with debugging enabled
+- **`replica-replay.js`** - Unminified production build
+
+### CDN Usage Examples
+
+#### 1. Auto-Initialize with URL Parameters
+```html
+<script 
+  src="https://cdn.jsdelivr.net/gh/aaratsatyavolu/replica-replay-sdk@main/build/cdn/replica-replay.min.js?projectKey=YOUR_KEY&secretKey=YOUR_SECRET" 
+  crossorigin="anonymous">
+</script>
+```
+
+#### 2. Auto-Initialize with Data Attributes
+```html
+<script 
+  src="https://cdn.jsdelivr.net/gh/aaratsatyavolu/replica-replay-sdk@main/build/cdn/replica-replay.min.js" 
+  data-project-key="YOUR_KEY" 
+  data-secret-key="YOUR_SECRET"
+  crossorigin="anonymous">
+</script>
+```
+
+#### 3. Manual Initialize with Callbacks
+```html
+<script src="https://cdn.jsdelivr.net/gh/aaratsatyavolu/replica-replay-sdk@main/build/cdn/replica-replay.min.js"></script>
+<script>
+  ReplicaReplay.init({
+    projectKey: 'YOUR_KEY',
+    secretKey: 'YOUR_SECRET',
+    onSuccess: () => console.log('✅ Session replay ready'),
+    onError: (error) => console.error('❌ Session replay failed:', error)
+  });
+</script>
+```
+
+#### 4. Debug Mode
+```html
+<script 
+  src="https://cdn.jsdelivr.net/gh/aaratsatyavolu/replica-replay-sdk@main/build/cdn/replica-replay-dev.js?projectKey=YOUR_KEY&secretKey=YOUR_SECRET&debug=true" 
+  crossorigin="anonymous">
+</script>
+```
+
+### When to Use CDN vs NPM
+
+**Use CDN when:**
+- Simple websites or landing pages
+- No build tools or bundler
+- Want fastest setup (30 seconds)
+- Don't need custom configuration
+
+**Use NPM when:**
+- Complex applications
+- Using a JavaScript framework (React, Vue, etc.)
+- Need TypeScript support
+- Want version control and customization
 
 ## 🔒 Security Features
 
