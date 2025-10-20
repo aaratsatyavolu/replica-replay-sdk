@@ -21,7 +21,7 @@ async function buildCDN() {
   }
   
   try {
-    // Build full production version
+    // Build the CDN bundle
     await esbuild.build({
       entryPoints: ['src/cdn.js'],
       bundle: true,
@@ -32,56 +32,14 @@ async function buildCDN() {
       globalName: 'ReplicaReplay',
       outfile: path.join(buildDir, 'replica-replay.min.js'),
       define: {
-        'process.env.NODE_ENV': '"production"',
-        'process.env.DEBUG': 'false',
-        'process.env.MINIMAL': 'false'
+        'process.env.NODE_ENV': '"production"'
       },
       banner: {
-        js: '/*! @replica-replay/core v1.0.0 - CDN Bundle (Production) */'
+        js: '/*! @replica-replay/core v1.0.0 - CDN Bundle */'
       }
     });
     
-    // Build minimal version (smaller file size)
-    await esbuild.build({
-      entryPoints: ['src/cdn.js'],
-      bundle: true,
-      minify: true,
-      sourcemap: false,
-      target: ['es2015', 'chrome58', 'firefox57', 'safari11'],
-      format: 'iife',
-      globalName: 'ReplicaReplay',
-      outfile: path.join(buildDir, 'replica-replay-minimal.min.js'),
-      define: {
-        'process.env.NODE_ENV': '"production"',
-        'process.env.DEBUG': 'false',
-        'process.env.MINIMAL': 'true'
-      },
-      banner: {
-        js: '/*! @replica-replay/core v1.0.0 - CDN Bundle (Minimal) */'
-      }
-    });
-    
-    // Build development version (with debugging)
-    await esbuild.build({
-      entryPoints: ['src/cdn.js'],
-      bundle: true,
-      minify: false,
-      sourcemap: true,
-      target: ['es2015', 'chrome58', 'firefox57', 'safari11'],
-      format: 'iife',
-      globalName: 'ReplicaReplay',
-      outfile: path.join(buildDir, 'replica-replay-dev.js'),
-      define: {
-        'process.env.NODE_ENV': '"development"',
-        'process.env.DEBUG': 'true',
-        'process.env.MINIMAL': 'false'
-      },
-      banner: {
-        js: '/*! @replica-replay/core v1.0.0 - CDN Bundle (Development) */'
-      }
-    });
-    
-    // Build non-minified production version
+    // Also create a non-minified version for development
     await esbuild.build({
       entryPoints: ['src/cdn.js'],
       bundle: true,
@@ -92,12 +50,10 @@ async function buildCDN() {
       globalName: 'ReplicaReplay',
       outfile: path.join(buildDir, 'replica-replay.js'),
       define: {
-        'process.env.NODE_ENV': '"production"',
-        'process.env.DEBUG': 'false',
-        'process.env.MINIMAL': 'false'
+        'process.env.NODE_ENV': '"development"'
       },
       banner: {
-        js: '/*! @replica-replay/core v1.0.0 - CDN Bundle (Unminified) */'
+        js: '/*! @replica-replay/core v1.0.0 - CDN Bundle (Development) */'
       }
     });
     
@@ -135,23 +91,14 @@ async function buildCDN() {
     
     fs.writeFileSync(path.join(buildDir, 'example.html'), exampleHTML);
     
-    console.log('✅ CDN bundles built successfully!');
+    console.log('✅ CDN bundle built successfully!');
     console.log(`📁 Output directory: ${buildDir}`);
     console.log('📄 Files created:');
-    console.log('   - replica-replay.min.js (production, full features)');
-    console.log('   - replica-replay-minimal.min.js (production, minimal)');
-    console.log('   - replica-replay-dev.js (development, with debugging)');
-    console.log('   - replica-replay.js (production, unminified)');
+    console.log('   - replica-replay.min.js (production)');
+    console.log('   - replica-replay.js (development)');
     console.log('   - example.html (usage example)');
     console.log('');
-    console.log('🚀 Usage Examples:');
-    console.log('   Auto-init with URL params:');
-    console.log('   <script src="./replica-replay.min.js?projectKey=key&secretKey=secret"></script>');
-    console.log('');
-    console.log('   Auto-init with data attributes:');
-    console.log('   <script src="./replica-replay.min.js" data-project-key="key" data-secret-key="secret"></script>');
-    console.log('');
-    console.log('   Manual initialization:');
+    console.log('🚀 Usage:');
     console.log('   <script src="./replica-replay.min.js"></script>');
     console.log('   <script>ReplicaReplay.init({ projectKey: "key", secretKey: "secret" });</script>');
     
